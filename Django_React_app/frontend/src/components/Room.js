@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link, Navigate, Route } from "react-router-dom";
+import { useParams, Link, Navigate, redirect } from "react-router-dom";
 import { Grid, Button, Typography } from '@material-ui/core';
 
 export default function Room(props) {
@@ -15,16 +15,17 @@ export default function Room(props) {
       .then(response => {
         if (!response.ok) {
           props.clearRoomCodeCallback(); // clears roomCode state in HomePage
-          Navigate("/");
         } else {
           return response.json();
         }
       })
       .then(data => {
+        console.log("haha")
+        console.log(data.votes_to_skip);
         setVotesToSkip(data.votes_to_skip);
         setGuestCanPause(data.guest_can_pause);
         setIsHost(data.is_host);
-      });
+      })
     }, []);
 
     const leaveButtonPressed = () => {
