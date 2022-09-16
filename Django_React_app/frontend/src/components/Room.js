@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import { Grid, Button, Typography } from '@material-ui/core';
 
 export default function Room() {
 
@@ -19,10 +20,23 @@ export default function Room() {
     });
 
 
-    return <div>
-            <h3>{roomCode}</h3>
-            <p>Votes: {votesToSkip}</p>
-            <p>Guest Can Pause: {String(guestCanPause)}</p>
-            <p>Host: {String(isHost)}</p>
-        </div>
+    return (
+      <Grid container spacing={1}>
+        <Grid item xs={12} align="center">
+          <Typography variant="h4" component="h4">
+            Code: {this.roomCode}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} align="center"></Grid>
+        <Grid item xs={12} align="center"></Grid>
+        <Grid item xs={12} align="center"></Grid>
+      </Grid>
+    );
 }
+
+      // <div>
+      //   <h3>{roomCode}</h3>
+      //   <p>Votes: {votesToSkip}</p>
+      //   <p>Guest Can Pause: {String(guestCanPause)}</p>
+      //   <p>Host: {String(isHost)}</p>
+      // </div>
