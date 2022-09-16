@@ -27,9 +27,9 @@ export default function Room(props) {
           });
     }, []);
 
-    const clearRoomCode = () => {
-      setState({roomCode: null})
-  }
+  //   const clearRoomCode = () => {
+  //     setState({roomCode: null})
+  // }
 
     const leaveButtonPressed = () => {
       const requestOptions = {
@@ -37,7 +37,7 @@ export default function Room(props) {
         headers: { "Content-Type": "application/json"}
       };
       fetch(`/api/leave-room`, requestOptions)
-        .then((response) => {
+        .then(_response => {
           props.clearRoomCodeCallback();
           Navigate("/");
         });
