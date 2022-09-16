@@ -27,10 +27,6 @@ export default function Room(props) {
           });
     }, []);
 
-  //   const clearRoomCode = () => {
-  //     setState({roomCode: null})
-  // }
-
     const leaveButtonPressed = () => {
       const requestOptions = {
         method: "POST",
