@@ -28,8 +28,19 @@ export default function Room() {
           </Typography>
         </Grid>
         <Grid item xs={12} align="center"></Grid>
-        <Grid item xs={12} align="center"></Grid>
-        <Grid item xs={12} align="center"></Grid>
+          <Typography variant="h4" component="h4">
+            Votes: {votesToSkip}
+          </Typography>
+        <Grid item xs={12} align="center">
+          <Typography variant="h4" component="h4">
+            Guest Can Pause: {String(guestCanPause)}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} align="center">
+          <Typography variant="h4" component="h4">
+            Host: {String(isHost)}
+          </Typography>
+        </Grid>
       </Grid>
     );
 }
