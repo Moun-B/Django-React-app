@@ -12,19 +12,19 @@ export default function Room(props) {
 
     useEffect(() => {
       fetch(`/api/get-room?code=${roomCode}`)
-          .then(response => {
-              if (!response.ok) {
-                  props.clearRoomCodeCallback(); // clears roomCode state in HomePage
-                  Navigate("/");
-              } else {
-                  return response.json();
-              }
-          })
-          .then(data => {
-                  setVotesToSkip(data.votes_to_skip);
-                  setGuestCanPause(data.guest_can_pause);
-                  setIsHost(data.is_host);
-          });
+      .then(response => {
+        if (!response.ok) {
+          props.clearRoomCodeCallback(); // clears roomCode state in HomePage
+          Navigate("/");
+        } else {
+          return response.json();
+        }
+      })
+      .then(data => {
+        setVotesToSkip(data.votes_to_skip);
+        setGuestCanPause(data.guest_can_pause);
+        setIsHost(data.is_host);
+      });
     }, []);
 
     const leaveButtonPressed = () => {
