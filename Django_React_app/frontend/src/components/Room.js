@@ -8,7 +8,8 @@ export default function Room(props) {
   const[votesToSkip, setVotesToSkip] = useState(2);
   const[guestCanPause, setGuestCanPause] = useState(false);
   const[isHost, setIsHost] = useState(false);
-  const[showSettings, setShowSettings] = useState(false)
+  const[showSettings, setShowSettings] = useState(false);
+  const[spotifyAuthenticated, setSpotifyAuthenticated] = useState(false);
 
   const { roomCode } = useParams();
 
@@ -27,29 +28,10 @@ export default function Room(props) {
         setGuestCanPause(data.guest_can_pause);
         setIsHost(data.is_host);
       })
+      if (isHost) {
+        authenticateSpotify();
+      }
     }, [showSettings]);
-
-    // useEffect(() => {
-    //     function renderSettings() {
-    //       return (
-    //         <Grid container spacing={1}>
-    //           <Grid item xs={12} align="center">
-    //             <CreateRoomPage
-    //               update={true}
-    //               votesToSkip={status.votesToSkip}
-    //               guestCanPause={status.guestCanPause}
-    //               roomCode={status.roomCode}
-    //             />
-    //           </Grid>
-    //           <Grid item xs={12} align="center">
-    //             <Button variant="contained" color="secondary" onClick={() => setShowSettings(false)}>
-    //               Close
-    //             </Button>
-    //           </Grid>
-    //         </Grid>
-    //       )
-    //     };
-    // }, [])
 
     const renderSettings = () => {
       return (
@@ -78,6 +60,17 @@ export default function Room(props) {
           </Button>
         </Grid>
       );
+    }
+
+    const authenticateSpotify = () => {
+      fetch('/spotify/is-authenticated').then((response) => response.json()).then((data) => {
+        setSpotifyAuthenticated(data.status)
+      if (!data.status) {
+        fetch('/spotify/get-auth-url').then((response) => response.json()).then((data) => {
+          window.location.replace(data.url)
+        })
+      }
+      });
     }
 
     const leaveButtonPressed = () => {
