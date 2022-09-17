@@ -1,41 +1,55 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link, Navigate, redirect } from "react-router-dom";
+import { useParams, Link, navigate } from "react-router-dom";
 import { Grid, Button, Typography } from '@material-ui/core';
 import CreateRoomPage from "./CreateRoomPage";
 
 export default function Room(props) {
 
-    const[votesToSkip, setVotesToSkip] = useState(2);
-    const[guestCanPause, setGuestCanPause] = useState(false);
-    const[isHost, setIsHost] = useState(false);
-    const[showSettings, setShowSettings] = useState(false)
+  const[votesToSkip, setVotesToSkip] = useState(2);
+  const[guestCanPause, setGuestCanPause] = useState(false);
+  const[isHost, setIsHost] = useState(false);
+  const[showSettings, setShowSettings] = useState(false)
 
-    const { roomCode } = useParams();
+  const { roomCode } = useParams();
 
-    useEffect(() => {
+  useEffect(() => {
       fetch(`/api/get-room?code=${roomCode}`)
       .then(response => {
         if (!response.ok) {
           props.clearRoomCodeCallback(); // clears roomCode state in HomePage
-          Navigate("/");
+          navigate("/");
         }
         return response.json();
 
       })
       .then(data => {
-        console.log("haha")
-        console.log(data.votes_to_skip);
         setVotesToSkip(data.votes_to_skip);
         setGuestCanPause(data.guest_can_pause);
         setIsHost(data.is_host);
       })
-    }, []);
+    }, [showSettings]);
 
-    // const updateShowSettings = (value) => {
-    //   this.setState({
-    //     ShowSettings: value,
-    //   });
-    // }
+    // useEffect(() => {
+    //     function renderSettings() {
+    //       return (
+    //         <Grid container spacing={1}>
+    //           <Grid item xs={12} align="center">
+    //             <CreateRoomPage
+    //               update={true}
+    //               votesToSkip={status.votesToSkip}
+    //               guestCanPause={status.guestCanPause}
+    //               roomCode={status.roomCode}
+    //             />
+    //           </Grid>
+    //           <Grid item xs={12} align="center">
+    //             <Button variant="contained" color="secondary" onClick={() => setShowSettings(false)}>
+    //               Close
+    //             </Button>
+    //           </Grid>
+    //         </Grid>
+    //       )
+    //     };
+    // }, [])
 
     const renderSettings = () => {
       return (
@@ -46,7 +60,6 @@ export default function Room(props) {
             votesToSkip={votesToSkip}
             guestCanPause={guestCanPause}
             roomCode={roomCode}
-            updateCallBack={() => {}}
           />
         </Grid>
         <Grid item xs={12} align="center">
@@ -75,7 +88,7 @@ export default function Room(props) {
       fetch(`/api/leave-room`, requestOptions)
         .then(_response => {
           props.clearRoomCodeCallback();
-          Navigate("/");
+          navigate("/");
         });
     }
 

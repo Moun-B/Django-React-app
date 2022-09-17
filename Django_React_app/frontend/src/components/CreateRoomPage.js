@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { Collapse } from '@material-ui/core';
 
 class CreateRoomPage extends Component {
   static defaultProps = {
@@ -17,7 +18,6 @@ class CreateRoomPage extends Component {
     guestCanPause: true,
     update: false,
     roomCode: null,
-    updateCallback: () => {},
   }
 
   constructor(props) {
@@ -25,11 +25,14 @@ class CreateRoomPage extends Component {
     this.state = {
       guestCanPause: this.props.guestCanPause,
       votesToSkip: this.props.votesToSkip,
+      errorMessage: "",
+      successMessage: "",
     };
 
     this.handleRoomButtonPressed = this.handleRoomButtonPressed.bind(this);
     this.handleVotesChange = this.handleVotesChange.bind(this);
     this.handleGuestCanPauseChange = this.handleGuestCanPauseChange.bind(this);
+    this.handleUpdateButtonPressed = this.handleUpdateButtonPressed.bind(this);
   }
 
   handleVotesChange(e) {
@@ -80,7 +83,7 @@ class CreateRoomPage extends Component {
             errorMessage: "Error updating room..."
           })
         }
-      })
+      });
   }
 
   renderCreateButtons() {
@@ -103,7 +106,7 @@ class CreateRoomPage extends Component {
   renderUpdateButtons() {
     return(
     <Grid item xs={12} align="center">
-      <Button color="primary" variant="contained" onClick={this.handleRoomButtonPressed}>
+      <Button color="primary" variant="contained" onClick={this.handleUpdateButtonPressed}>
         Update Room
       </Button>
     </Grid>
@@ -116,6 +119,11 @@ class CreateRoomPage extends Component {
     return (
     <Grid container spacing={1}>
       <Grid item xs={12} align="center">
+        <Collapse in={this.state.errorMessage != "" || this.state.successMessage != ""}>
+          {this.state.successMessage}
+        </Collapse>
+      </Grid>
+      <Grid item xs={12} align="center">
         <Typography component='h4' variant='h4'>
           {title}
         </Typography>
@@ -127,7 +135,7 @@ class CreateRoomPage extends Component {
               Guest Control of Playback State
             </div>
           </FormHelperText>
-          <RadioGroup row defaultValue="true" onChange={this.handleGuestCanPauseChange}>
+          <RadioGroup row defaultValue={this.props.guestCanPause.toString()} onChange={this.handleGuestCanPauseChange}>
             <FormControlLabel value="true"
               control={<Radio color="primary"/>}
               label="Play/Pause"
