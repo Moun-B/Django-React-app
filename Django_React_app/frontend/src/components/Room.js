@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link, Navigate, redirect } from "react-router-dom";
 import { Grid, Button, Typography } from '@material-ui/core';
+import CreateRoomPage from "./CreateRoomPage";
 
 export default function Room(props) {
 
     const[votesToSkip, setVotesToSkip] = useState(2);
     const[guestCanPause, setGuestCanPause] = useState(false);
     const[isHost, setIsHost] = useState(false);
+    const[showSettings, setShowSettings] = useState(false)
 
     const { roomCode } = useParams();
 
@@ -15,7 +17,7 @@ export default function Room(props) {
       .then(response => {
         if (!response.ok) {
           props.clearRoomCodeCallback(); // clears roomCode state in HomePage
-          redirect("/");
+          Navigate("/");
         }
         return response.json();
 
@@ -28,6 +30,37 @@ export default function Room(props) {
         setIsHost(data.is_host);
       })
     }, []);
+
+    // const updateShowSettings = (value) => {
+    //   this.setState({
+    //     ShowSettings: value,
+    //   });
+    // }
+
+    const renderSettings = () => {
+      <Grid container spacing={1}>
+        <Grid item xs={12} align="center">
+          <CreateRoomPage
+            update={true}
+            votesToSkip={ votesToSkip }
+            guestCanPause={ guestCanPause }
+            roomCode={ roomCode }
+            updateCallBack={}
+          />
+        </Grid>
+        <Grid item xs={12} align="center"></Grid>
+      </Grid>
+    }
+
+    const renderSettingsButton = () => {
+      return (
+        <Grid item xs={12} align="center">
+          <Button variant="contained" color="primary" onClick={() => setShowSettings(true)}>
+            Settings
+          </Button>
+        </Grid>
+      );
+    }
 
     const leaveButtonPressed = () => {
       const requestOptions = {
@@ -64,6 +97,7 @@ export default function Room(props) {
             Host: {String(isHost)}
           </Typography>
         </Grid>
+        {isHost ? renderSettingsButton() : null}
         <Grid item xs={12} align="center">
           <Button color="secondary" variant="contained" to="/" component={ Link } onClick={leaveButtonPressed}>
             Leave Room
