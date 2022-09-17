@@ -15,6 +15,7 @@ export default function Room(props) {
       .then(response => {
         if (!response.ok) {
           props.clearRoomCodeCallback(); // clears roomCode state in HomePage
+          Navigate("/");
         } else {
           return response.json();
         }
