@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link, navigate } from "react-router-dom";
+import { useParams, Link, Navigate, redirect } from "react-router-dom";
 import { Grid, Button, Typography } from '@material-ui/core';
 import CreateRoomPage from "./CreateRoomPage";
 
@@ -18,7 +18,7 @@ export default function Room(props) {
       .then(response => {
         if (!response.ok) {
           props.clearRoomCodeCallback(); // clears roomCode state in HomePage
-          navigate("/");
+          redirect("/");
         }
         return response.json();
 
@@ -29,7 +29,7 @@ export default function Room(props) {
         setIsHost(data.is_host);
       })
       if (isHost) {
-        authenticateSpotify();
+        authenticateSpotify;
       }
     }, [showSettings]);
 
@@ -81,7 +81,7 @@ export default function Room(props) {
       fetch(`/api/leave-room`, requestOptions)
         .then(_response => {
           props.clearRoomCodeCallback();
-          navigate("/");
+          Navigate("/");
         });
     }
 
