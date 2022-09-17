@@ -61,7 +61,7 @@ class CreateRoomPage extends Component {
 
   handleUpdateButtonPressed() {
     const requestOptions = {
-      method: 'POST',
+      method: 'PATCH',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
         votes_to_skip: this.state.votesToSkip,
@@ -69,9 +69,18 @@ class CreateRoomPage extends Component {
         code: this.props.roomCode
       }),
     };
-    fetch('/api/create-room', requestOptions)
-      .then((response) => response.json())
-      .then((data) => this.props.navigate("/room/" + data.code));
+    fetch('/api/update-room', requestOptions)
+      .then((response) => {
+        if (response.ok) {
+          this.setState({
+            successMessage: "Room updated successfully!"
+          })
+        } else {
+          this.setState({
+            errorMessage: "Error updating room..."
+          })
+        }
+      })
   }
 
   renderCreateButtons() {
