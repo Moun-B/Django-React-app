@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link, Navigate, redirect } from "react-router-dom";
 import { Grid, Button, Typography } from '@material-ui/core';
 import CreateRoomPage from "./CreateRoomPage";
+import MusicPlayer from "./MusicPlayer";
 
 export default function Room(props) {
 
@@ -14,13 +15,13 @@ export default function Room(props) {
 
   const { roomCode } = useParams();
 
-  const componentDidMount = () => {
-    this.interval = setInterval(this.getCurrentSong, 1000)
-  };
+  // const componentDidMount = () => {
+  //   this.interval = setInterval(getCurrentSong, 1000)
+  // };
 
-  const componentWillUnmount = () => {
-    clearInterval(this.interval);
-  };
+  // const componentWillUnmount = () => {
+  //   clearInterval(this.interval);
+  // };
 
   useEffect(() => {
       fetch(`/api/get-room?code=${roomCode}`)
@@ -114,6 +115,7 @@ export default function Room(props) {
 
     { if (showSettings) {
       return renderSettings();
+      getCurrentSong()
     }};
 
     return (
@@ -123,7 +125,7 @@ export default function Room(props) {
             Code: { roomCode }
           </Typography>
         </Grid>
-        {Object.keys(song).length === 0 ? getCurrentSong() : null}
+        <MusicPlayer song={song}/>
         {isHost ? renderSettingsButton() : null}
         <Grid item xs={12} align="center">
           <Button color="secondary" variant="contained" to="/" component={ Link } onClick={leaveButtonPressed}>

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Grid, Typography, Card, IconButton, LinearProgress, Icon } from '@material-ui/core';
-import { PlayArrowIcon, SkipNextIcon, PauseIcon } from '@material-ui/icons';
+import { Grid, Typography, Card, IconButton, LinearProgress } from '@material-ui/core';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import SkipNextIcon from '@material-ui/icons/SkipNext';
+import PauseIcon from '@material-ui/icons/Pause';
 
 export default class MusicPlayer extends Component {
   constructor(props) {
@@ -8,22 +10,24 @@ export default class MusicPlayer extends Component {
   }
 
   render() {
+    const songProgress = (this.props.song.time / this.props.song.duration) * 100;
+    console.log(this.props.song)
     return (
       <Card>
         <Grid container alignItems="center">
           <Grid item align="center" xs={4}>
-            <img src={this.props.image_url} height="100%" width="100%" />
+            <img src={this.props.song.image_url} height="100%" width="100%" />
           </Grid>
           <Grid item align="center" xs={8}>
             <Typography component="h5" variant="h5">
-              {this.props.title}
+              {this.props.song.title}
             </Typography>
             <Typography color="textSecondary" variant="subtitle1">
-              {this.props.artist}
+              {this.props.song.artist}
             </Typography>
             <div>
               <IconButton>
-                {this.props.is_playing ? <PauseIcon /> : <PlayArrowIcon />}
+                {this.props.song.is_playing ? <PauseIcon /> : <PlayArrowIcon />}
               </IconButton>
               <IconButton>
                 <SkipNextIcon />
@@ -31,7 +35,7 @@ export default class MusicPlayer extends Component {
             </div>
           </Grid>
         </Grid>
-        <LinearProgress variant="determinate" value={} />
+        <LinearProgress variant="determinate" value={songProgress} />
       </Card>
     );
   }
