@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
 import { Grid, Typography, Card, IconButton, LinearProgress } from '@material-ui/core';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import SkipNextIcon from '@material-ui/icons/SkipNext';
 import PauseIcon from '@material-ui/icons/Pause';
+import SkipNextIcon from '@material-ui/icons/SkipNext';
 
 export default class MusicPlayer extends Component {
   constructor(props) {
     super(props);
+  }
+
+  skipSong() {
+    const requestOptions = {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+    };
+    fetch('/spotify/skip', requestOptions)
   }
 
   pauseSong() {
@@ -47,7 +55,7 @@ export default class MusicPlayer extends Component {
               >
                 {this.props.song.is_playing ? <PauseIcon /> : <PlayArrowIcon />}
               </IconButton>
-              <IconButton>
+              <IconButton onClick={() => this.skipSong()}>
                 <SkipNextIcon />
               </IconButton>
             </div>

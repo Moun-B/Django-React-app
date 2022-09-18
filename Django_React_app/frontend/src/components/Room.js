@@ -39,7 +39,7 @@ export default function Room(props) {
       });
       if (isHost) {
         authenticateSpotify();
-      }
+      };
       return getCurrentSong();
     }, [showSettings, isHost, song]);
 
