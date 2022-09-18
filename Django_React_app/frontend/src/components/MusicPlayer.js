@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Typography, Card, IconButton, LinearProgress } from '@material-ui/core';
+import { Grid, Typography, Card, IconButton, LinearProgress, Icon } from '@material-ui/core';
 import { PlayArrowIcon, SkipNextIcon, PauseIcon } from '@material-ui/icons';
 
 export default class MusicPlayer extends Component {
@@ -18,11 +18,20 @@ export default class MusicPlayer extends Component {
             <Typography component="h5" variant="h5">
               {this.props.title}
             </Typography>
-            <Typography component="h5" variant="h5">
+            <Typography color="textSecondary" variant="subtitle1">
               {this.props.artist}
             </Typography>
+            <div>
+              <IconButton>
+                {this.props.is_playing ? <PauseIcon /> : <PlayArrowIcon />}
+              </IconButton>
+              <IconButton>
+                <SkipNextIcon />
+              </IconButton>
+            </div>
           </Grid>
         </Grid>
+        <LinearProgress variant="determinate" value={} />
       </Card>
     );
   }
