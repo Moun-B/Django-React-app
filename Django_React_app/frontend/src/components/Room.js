@@ -40,7 +40,8 @@ export default function Room(props) {
       if (isHost) {
         authenticateSpotify();
       }
-    }, [showSettings, isHost]);
+      return getCurrentSong();
+    }, [showSettings, isHost, song]);
 
     const getCurrentSong = () => {
       fetch('/spotify/current-song')
@@ -115,7 +116,6 @@ export default function Room(props) {
 
     { if (showSettings) {
       return renderSettings();
-      getCurrentSong()
     }};
 
     return (
