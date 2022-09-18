@@ -5,8 +5,8 @@ import CreateRoomPage from "./CreateRoomPage";
 
 export default function Room(props) {
 
-  const[votesToSkip, setVotesToSkip] = useState(2);
-  const[guestCanPause, setGuestCanPause] = useState(false);
+  const [votesToSkip, setVotesToSkip] = useState(2);
+  const [guestCanPause, setGuestCanPause] = useState(false);
   const[isHost, setIsHost] = useState(false);
   const[showSettings, setShowSettings] = useState(false);
   const[spotifyAuthenticated, setSpotifyAuthenticated] = useState(false);
@@ -21,17 +21,16 @@ export default function Room(props) {
           redirect("/");
         }
         return response.json();
-
       })
       .then(data => {
         setVotesToSkip(data.votes_to_skip);
         setGuestCanPause(data.guest_can_pause);
         setIsHost(data.is_host);
-      })
+      });
       if (isHost) {
-        authenticateSpotify;
+        authenticateSpotify();
       }
-    }, [showSettings]);
+    }, [showSettings, isHost]);
 
     const renderSettings = () => {
       return (
@@ -63,14 +62,18 @@ export default function Room(props) {
     }
 
     const authenticateSpotify = () => {
-      fetch('/spotify/is-authenticated').then((response) => response.json()).then((data) => {
-        setSpotifyAuthenticated(data.status)
-      if (!data.status) {
-        fetch('/spotify/get-auth-url').then((response) => response.json()).then((data) => {
-          window.location.replace(data.url)
-        })
-      }
-      });
+      fetch('/spotify/is-authenticated')
+        .then((response) => response.json())
+          .then((data) => {
+            setSpotifyAuthenticated(data.status)
+            if (!data.status) {
+              fetch('/spotify/get-auth-url')
+              .then((response) => response.json())
+              .then((data) => {
+                window.location.replace(data.url)
+                });
+            }
+          });
     }
 
     const leaveButtonPressed = () => {
