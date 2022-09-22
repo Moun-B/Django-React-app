@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import RoomJoinPage from './RoomJoinPage';
 import CreateRoomPage from './CreateRoomPage';
-import Room from './Room';
 import { Grid, Button, ButtonGroup, Typography } from '@material-ui/core';
+import Room from './Room';
+import Info from "./Info";
 import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
-import Info from "./info";
 
 export default class HomePage extends Component {
   constructor(props) {
@@ -14,6 +14,7 @@ export default class HomePage extends Component {
     };
     this.clearRoomCode = this.clearRoomCode.bind(this)
   }
+
   async componentDidMount() {
     fetch('/api/user-in-room')
     .then((response) => response.json())
@@ -40,13 +41,13 @@ export default class HomePage extends Component {
         </Grid>
         <Grid item xs={12} align="center">
           <ButtonGroup disableElevation variant="contained" color="primary">
-            <Button color="primary" to='/join' component={ Link }>
+            <Button color="primary" to='/join' component={Link}>
               Join a Room
             </Button>
-            <Button color="default" to='/info' component={ Link }>
+            <Button color="default" to='/info' component={Link}>
               Info
             </Button>
-            <Button color="secondary" to='/create' component={ Link }>
+            <Button color="secondary" to='/create' component={Link}>
               Create a Room
             </Button>
           </ButtonGroup>
