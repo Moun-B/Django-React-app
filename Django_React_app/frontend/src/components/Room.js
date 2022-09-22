@@ -15,14 +15,6 @@ export default function Room(props) {
 
   const { roomCode } = useParams();
 
-  // const componentDidMount = () => {
-  //   this.interval = setInterval(getCurrentSong, 1000)
-  // };
-
-  // const componentWillUnmount = () => {
-  //   clearInterval(this.interval);
-  // };
-
   useEffect(() => {
       fetch(`/api/get-room?code=${roomCode}`)
       .then(response => {
