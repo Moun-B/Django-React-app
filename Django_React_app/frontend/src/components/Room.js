@@ -18,7 +18,6 @@ export default function Room(props) {
   const { roomCode } = useParams();
 
   useEffect(() => {
-    getCurrentSong();
     fetch(`/api/get-room?code=${roomCode}`)
     .then(response => {
       if (!response.ok) {
@@ -28,14 +27,15 @@ export default function Room(props) {
       return response.json();
     })
     .then(data => {
-        setVotesToSkip(data.votes_to_skip);
-        setGuestCanPause(data.guest_can_pause);
-        setIsHost(data.is_host);
-      });
-      if (isHost) {
-        authenticateSpotify();
-      };
-    }, [song]);
+      setVotesToSkip(data.votes_to_skip);
+      setGuestCanPause(data.guest_can_pause);
+      setIsHost(data.is_host);
+    });
+    if (isHost) {
+      authenticateSpotify();
+    };
+    getCurrentSong();
+    }, [song, isHost, showSettings]);
 
     const getCurrentSong = () => {
       fetch('/spotify/current-song')
