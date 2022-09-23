@@ -35,7 +35,7 @@ export default class MusicPlayer extends Component {
 
   render() {
     const songProgress = (this.props.song.time / this.props.song.duration) * 100;
-    console.log(this.props.song)
+    console.log(this.props.song);
     return (
       <Card>
         <Grid container alignItems="center">

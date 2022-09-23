@@ -18,6 +18,7 @@ export default function Room(props) {
   const { roomCode } = useParams();
 
   useEffect(() => {
+    getCurrentSong();
     fetch(`/api/get-room?code=${roomCode}`)
     .then(response => {
       if (!response.ok) {
@@ -34,22 +35,23 @@ export default function Room(props) {
       if (isHost) {
         authenticateSpotify();
       };
-      // return getCurrentSong();
-    }, [showSettings, isHost, song]);
+    }, [song]);
 
-    function getCurrentSong() {
-        fetch('/spotify/current-song')
-        .then((response) => {
-          if (!response.ok) {
-            return {};
-          } else {
-            return response.json();
-          }
-        }).then((data) => {
-          setSong(data);
+    const getCurrentSong = () => {
+      fetch('/spotify/current-song')
+      .then((response) => {
+        if (!response.ok) {
+          return {};
+        } else {
+          return response.json();
+        }
+      }).then((data) => {
+        setTimeout(() => {
+          setSong(data)
           console.log(data);
-        });
-      }
+        }, 250);
+      })
+    }
 
     const renderSettings = () => {
       return (
@@ -118,7 +120,7 @@ export default function Room(props) {
             Room Code: { roomCode }
           </Typography>
         </Grid>
-        <MusicPlayer song={ song }/>
+        <MusicPlayer song={ song } />
         {isHost ? renderSettingsButton() : null}
         <Grid item xs={12} align="center">
           <Button color="secondary" variant="contained" to="/" component={ Link } onClick={leaveButtonPressed}>
