@@ -34,9 +34,10 @@ export default function Room(props) {
       if (isHost) {
         authenticateSpotify();
       };
-    }, []);
+      // return getCurrentSong();
+    }, [showSettings, isHost, song]);
 
-    const getCurrentSong = () => {
+    function getCurrentSong() {
         fetch('/spotify/current-song')
         .then((response) => {
           if (!response.ok) {
@@ -49,8 +50,6 @@ export default function Room(props) {
           console.log(data);
         });
       }
-
-      setInterval(getCurrentSong, 5000);
 
     const renderSettings = () => {
       return (
