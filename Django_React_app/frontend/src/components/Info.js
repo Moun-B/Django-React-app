@@ -13,7 +13,7 @@ export default function Info(props) {
   const [page, setPage] = useState(pages.JOIN);
 
   function joinInfo() {
-    return "Join room with a code thatd a host shared with you, you will be able to control his Spotify playlist with a vote system with other members. \n Enjoy a party !";
+    return `Join room with a code that a host shared with you, you will be able to control his Spotify playlist with a vote system with other members. Enjoy a party !`;
   }
 
   function createInfo() {
