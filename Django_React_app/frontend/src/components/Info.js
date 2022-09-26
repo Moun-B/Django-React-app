@@ -13,11 +13,11 @@ export default function Info(props) {
   const [page, setPage] = useState(pages.JOIN);
 
   function joinInfo() {
-    return `Join room with a code that a host shared with you, you will be able to control his Spotify playlist with a vote system with other members. Enjoy a party !`;
+    return `Join room with a code that a host shared with you, you will be able to control his Spotify playlist with a vote system with other members. Enjoy the party !`;
   }
 
   function createInfo() {
-    return "Create page";
+    return "Create a room and authentificate with your Spotify account, you can share your room code with people and they will be able to vote to skip a song or pause the current song. Enjoy the experience !";
   }
 
   useEffect(() => {
