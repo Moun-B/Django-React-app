@@ -33,6 +33,9 @@ export default function Info(props) {
         </Typography>
       </Grid>
       <Grid item xs={12} align="center">
+        <Typography variant="h5">
+          {page === pages.JOIN ? "Join a Room" : "Create a Room\n"}
+        </Typography>
         <Typography variant="body1">
           {page === pages.JOIN ? joinInfo() : createInfo()}
         </Typography>
