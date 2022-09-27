@@ -34,12 +34,12 @@ export default class HomePage extends Component {
   renderHomePage() {
     return (
       <Grid container spacing={6}>
-        <Grid item xs={12} align="center">
+        <Grid item xs={12} sm={12} align="center">
           <Typography variant="h3" compact="h3">
             Spotify Room App
           </Typography>
         </Grid>
-        <Grid item xs={12} align="center">
+        <Grid item xs={12} sm={12} md={12} align="center">
           <Box m={1} pt={1}>
             <Button variant="contained" color="secondary" to='/create' component={Link}>
               Create a Room
