@@ -41,6 +41,6 @@ html, body {
 
 @media (max-width: 576px) {
   html, body {
-    font-size: 500px;
+    font-size: 25px !important;
   }
 }
