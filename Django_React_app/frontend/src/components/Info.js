@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Button, Typography, IconButton } from "@material-ui/core";
+import { Grid, Button, Typography, IconButton, Box } from "@material-ui/core";
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import { Link } from "react-router-dom";
@@ -33,9 +33,11 @@ export default function Info(props) {
         </Typography>
       </Grid>
       <Grid item xs={12} align="center">
-        <Typography variant="h5">
-          {page === pages.JOIN ? "Join a Room" : "Create a Room\n"}
-        </Typography>
+        <Box mb={1}>
+          <Typography variant="h5">
+            {page === pages.JOIN ? "Join a Room" : "Create a Room\n"}
+          </Typography>
+        </Box>
         <Typography variant="body1">
           {page === pages.JOIN ? joinInfo() : createInfo()}
         </Typography>
