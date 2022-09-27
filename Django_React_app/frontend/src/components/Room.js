@@ -114,7 +114,7 @@ export default function Room(props) {
     }};
 
     return (
-      <Grid container spacing={2}>
+      <Grid container justify="center" alignItems="center" spacing={2}>
         <Grid item xs={12} align="center">
           <Typography variant="h4" component="h4">
             Room Code: { roomCode }
