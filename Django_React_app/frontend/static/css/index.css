@@ -40,6 +40,10 @@ html, body {
   color: white !important;
 }
 
+.MuiInputBase-input {
+  color: white !important;
+}
+
 @media only screen and (max-width: 576px) {
   html, body {
     font-size: 15px;
